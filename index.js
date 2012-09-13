@@ -23,7 +23,7 @@ var path = require('path')
  *    partials.register('coffee',require('coffeekup'));
  *    partials.register('coffee',require('coffeekup').render);
  *    app.get('/',function(req,res,next){
- *      res.render('index.ejs') // renders layout.ejs with index.ejs as `body`.
+ *      res.render('index.ejs') // renders layout.ejs with index.ejs as `content`.
  *    })
  * 
  * Options:
@@ -52,12 +52,12 @@ module.exports = function(){
       // layout
       if( layout ){
         // first render normally
-        _render(name, options, function(err, body){
+        _render(name, options, function(err, content){
           if( err )
             return fn ? fn(err) : req.next(err);
 
           options = options || {};
-          options.body = body;
+          options.content = content;
 
           // now render the layout
           var ext = extname(name) || '.'+(res.app.get('view engine') || 'ejs');
