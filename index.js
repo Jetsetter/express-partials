@@ -172,7 +172,8 @@ function resolveObjectName(view){
  */
 
 function lookup(root, view, ext){
-  var name = resolveObjectName(view);
+  var name = resolveObjectName(view),
+      originalView = view;
 
   if(exists(view)) return view;
 
@@ -193,6 +194,10 @@ function lookup(root, view, ext){
   // Try root ex: <root>/user.jade
   view = resolve(root,name+ext);
   if( exists(view) ) return view;
+
+  // Try absolute route
+  view = root + originalView + ext;
+  if(exists(view)) return view;
 
   return null;
 };
